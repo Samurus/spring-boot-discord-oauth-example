@@ -47,7 +47,7 @@ public class SuccessEndpoint {
     HttpEntity<MultiValueMap<String, String>> requestBody = new HttpEntity<>(map, requestHeader);
 
     ResponseEntity<String> response =
-        restTemplate.exchange("https://foo/api/v3/projects/1/labels",
+        restTemplate.exchange("https://discord.com/api/oauth2/token",
             HttpMethod.POST,
             requestBody,
             String.class);
