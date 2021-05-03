@@ -38,30 +38,27 @@ public class SuccessEndpoint {
     RestTemplate restTemplate = new RestTemplate();
     HttpHeaders requestHeader = new HttpHeaders();
     requestHeader.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-    requestHeader.setAccept(Collections.singletonList(MediaType.ALL));
 
-//    MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-//    map.add("client_id",clientId);
-//    map.add("client_secret",clientSecret);
-//    map.add("grant_type", "authorization_code");
-//    map.add("redirect_uri", hostUrl+"/login2/oauth2/code/discord");
-//    map.add("code", code);
+    MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+    map.add("client_id",clientId);
+    map.add("client_secret",clientSecret);
+    map.add("grant_type", "authorization_code");
+    map.add("redirect_uri", hostUrl+"/login2/oauth2/code/discord");
+    map.add("code", code);
 
-    String body = "client_id="+clientId+"&"+
-    "client_secret="+clientSecret+"&"+
-    "grant_type="+"authorization_code"+"&"+
-    "redirect_uri="+hostUrl+"/login2/oauth2/code/discord"+"&"+
-    "code="+code;
+//    String body = "client_id="+clientId+"&"+
+//    "client_secret="+clientSecret+"&"+
+//    "grant_type="+"authorization_code"+"&"+
+//    "redirect_uri="+hostUrl+"/login2/oauth2/code/discord"+"&"+
+//    "code="+code;
 
-    HttpEntity<String> stringHttpEntity = new HttpEntity<>(body, requestHeader);
-
+    HttpEntity<MultiValueMap<String, String>> stringHttpEntity = new HttpEntity<>(map,
+        requestHeader);
     System.out.println(stringHttpEntity);
 
-    ResponseEntity<String> response =
-        restTemplate.exchange("https://discord.com/api/oauth2/token",
-            HttpMethod.POST,
-            stringHttpEntity,
-            String.class);
+    String response =
+        restTemplate.postForObject("https://discord.com/api/oauth2/token",
+            requestHeader, String.class);
 
     System.out.println(response);
 
