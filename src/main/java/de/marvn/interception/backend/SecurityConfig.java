@@ -53,7 +53,7 @@ public class SecurityConfig {
         .clientSecret(clientSecret)
         .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
         .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-        .redirectUri(hostUrl+"/login/oauth2/code/discord")
+        .redirectUri(hostUrl+"/login/oauth2/code/{registrationId}")
         .scope("email", "connections")
         .authorizationUri("https://discord.com/api/oauth2/authorize")
         .tokenUri("https://discord.com/api/oauth2/token")
