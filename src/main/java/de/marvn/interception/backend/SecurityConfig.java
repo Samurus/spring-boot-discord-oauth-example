@@ -31,9 +31,11 @@ public class SecurityConfig {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+      http.authorizeRequests().antMatchers("/login2/oauth2/code/discord").permitAll();
       http
           .authorizeRequests(authorizeRequests ->
               authorizeRequests
+
                   .anyRequest().authenticated()
           )
           .oauth2Login(withDefaults());
@@ -53,7 +55,7 @@ public class SecurityConfig {
         .clientSecret(clientSecret)
         .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
         .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-        .redirectUri(hostUrl+"/login/oauth2/code/discord")
+        .redirectUri(hostUrl+"/login2/oauth2/code/discord")
         .scope("email", "connections")
         .authorizationUri("https://discord.com/api/oauth2/authorize")
         .tokenUri("https://discord.com/api/oauth2/token")
