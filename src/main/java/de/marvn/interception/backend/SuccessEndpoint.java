@@ -41,7 +41,7 @@ public class SuccessEndpoint {
     requestHeader.setAccept(Collections.singletonList(MediaType.ALL));
 
     MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-    map.add("client-id",clientId);
+    map.add("client_id",clientId);
     map.add("client_secret",clientSecret);
     map.add("grant_type", "authorization_code");
     map.add("redirect_uri", hostUrl+"/login2/oauth2/code/discord");
