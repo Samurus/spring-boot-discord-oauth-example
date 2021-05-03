@@ -23,7 +23,7 @@ public class SecurityConfig {
   @Value("${spring.security.oauth2.client.registration.discord.client-secret:default-client-secret}")
   private String clientSecret;
 
-  @Value("${server.heroku.url:www.dummy.de}")
+  @Value("${server.heroku.url:http://www.dummy.de/}")
   private String hostUrl;
 
   @EnableWebSecurity
