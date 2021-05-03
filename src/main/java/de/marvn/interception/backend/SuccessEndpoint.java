@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class SuccessEndpoint {
 
   @GetMapping("/oauth2/code/discord")
-  public ResponseEntity<String> getCustomers(@RequestParam String code, @RequestParam String id, @RequestHeader Map<String, String> headers) {
+  public ResponseEntity<String> getCustomers(@RequestParam String code, @RequestParam String state, @RequestHeader Map<String, String> headers) {
 
     return new ResponseEntity<String>(
-        String.format("code = "+code+"id= "+ id + "Listed %d headers=", headers.size()), HttpStatus.OK);
+        String.format("code = "+code+"id= "+ state + "Listed %d headers=", headers.size()), HttpStatus.OK);
   }
 
 
