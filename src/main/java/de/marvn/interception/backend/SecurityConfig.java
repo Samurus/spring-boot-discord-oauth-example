@@ -23,6 +23,9 @@ public class SecurityConfig {
   @Value("${spring.security.oauth2.client.registration.discord.client-secret:default-client-secret}")
   private String clientSecret;
 
+  @Value("${server.heroku.url:www.dummy.de}")
+  private String hostUrl;
+
   @EnableWebSecurity
   public static class OAuth2LoginSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -50,7 +53,7 @@ public class SecurityConfig {
         .clientSecret(clientSecret)
         .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
         .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-        .redirectUri("https://www.google.com/search?q=teswt")
+        .redirectUri(hostUrl+"/login/oauth2/code/discord")
         .scope("email", "connections")
         .authorizationUri("https://discord.com/api/oauth2/authorize")
         .tokenUri("https://discord.com/api/oauth2/token")
