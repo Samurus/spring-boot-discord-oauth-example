@@ -47,10 +47,10 @@ public class SuccessEndpoint {
 //    map.add("redirect_uri", hostUrl+"/login2/oauth2/code/discord");
 //    map.add("code", code);
 
-    String body = "client_id="+clientId+"&\n"+
-    "client_secret="+clientSecret+"&\n"+
-    "grant_type="+"authorization_code"+"&\n"+
-    "redirect_uri="+hostUrl+"/login2/oauth2/code/discord"+"&\n"+
+    String body = "client_id="+clientId+"&"+
+    "client_secret="+clientSecret+"&"+
+    "grant_type="+"authorization_code"+"&"+
+    "redirect_uri="+hostUrl+"/login2/oauth2/code/discord"+"&"+
     "code="+code;
 
     HttpEntity<String> stringHttpEntity = new HttpEntity<>(body, requestHeader);
