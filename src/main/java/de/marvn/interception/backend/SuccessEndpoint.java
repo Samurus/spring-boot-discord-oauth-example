@@ -1,5 +1,7 @@
 package de.marvn.interception.backend;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -32,10 +34,11 @@ public class SuccessEndpoint {
 
   @GetMapping("/oauth2/code/discord")
   public ResponseEntity<String> getCustomers(@RequestParam String code, @RequestParam String state, @RequestHeader Map<String, String> headers) {
-
+    System.out.println("code =" + code);
     RestTemplate restTemplate = new RestTemplate();
     HttpHeaders requestHeader = new HttpHeaders();
     requestHeader.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+    requestHeader.setAccept(Collections.singletonList(MediaType.ALL));
 
     MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
     map.add("client-id",clientId);
@@ -46,13 +49,17 @@ public class SuccessEndpoint {
 
     HttpEntity<MultiValueMap<String, String>> requestBody = new HttpEntity<>(map, requestHeader);
 
+    System.out.println(requestBody);
+
     ResponseEntity<String> response =
         restTemplate.exchange("https://discord.com/api/oauth2/token",
             HttpMethod.POST,
             requestBody,
             String.class);
 
-    return new ResponseEntity<String>(String.valueOf(requestBody), HttpStatus.OK);
+    System.out.println(response);
+
+    return new ResponseEntity<String>(String.valueOf(response), HttpStatus.OK);
   }
 
 
