@@ -58,7 +58,7 @@ public class SuccessEndpoint {
 
     String response =
         restTemplate.postForObject("https://discord.com/api/oauth2/token",
-            requestHeader, String.class);
+            stringHttpEntity, String.class);
 
     System.out.println(response);
 
