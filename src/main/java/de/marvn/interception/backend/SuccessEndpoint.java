@@ -40,21 +40,27 @@ public class SuccessEndpoint {
     requestHeader.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
     requestHeader.setAccept(Collections.singletonList(MediaType.ALL));
 
-    MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-    map.add("client_id",clientId);
-    map.add("client_secret",clientSecret);
-    map.add("grant_type", "authorization_code");
-    map.add("redirect_uri", hostUrl+"/login2/oauth2/code/discord");
-    map.add("code", code);
+//    MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+//    map.add("client_id",clientId);
+//    map.add("client_secret",clientSecret);
+//    map.add("grant_type", "authorization_code");
+//    map.add("redirect_uri", hostUrl+"/login2/oauth2/code/discord");
+//    map.add("code", code);
 
-    HttpEntity<MultiValueMap<String, String>> requestBody = new HttpEntity<>(map, requestHeader);
+    String body = "client_id="+clientId+"&\n"+
+    "client_secret="+clientSecret+"&\n"+
+    "grant_type="+"authorization_code"+"&\n"+
+    "redirect_uri="+hostUrl+"/login2/oauth2/code/discord"+"&\n"+
+    "code="+code;
 
-    System.out.println(requestBody);
+    HttpEntity<String> stringHttpEntity = new HttpEntity<>(body, requestHeader);
+
+    System.out.println(stringHttpEntity);
 
     ResponseEntity<String> response =
         restTemplate.exchange("https://discord.com/api/oauth2/token",
             HttpMethod.POST,
-            requestBody,
+            stringHttpEntity,
             String.class);
 
     System.out.println(response);
