@@ -8,9 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
@@ -27,7 +29,7 @@ public class SecurityConfig {
   private String hostUrl;
 
   @EnableWebSecurity
-  public static class OAuth2LoginSecurityConfig extends WebSecurityConfigurerAdapter {
+  public class OAuth2LoginSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -55,7 +57,7 @@ public class SecurityConfig {
         .clientSecret(clientSecret)
         .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
         .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-        .redirectUri(hostUrl+"/login2/oauth2/code/discord")
+        .redirectUri(hostUrl+"/login/oauth2/code/discord")
         .scope("email","identify","guilds","messages.read", "connections")
         .authorizationUri("https://discord.com/api/oauth2/authorize")
         .tokenUri("https://discord.com/api/oauth2/token")
