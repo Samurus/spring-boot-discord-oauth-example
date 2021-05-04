@@ -6,7 +6,7 @@ plugins {
 
 group = 'de.marvn.interception'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = '1.15'
 
 configurations {
 	compileOnly {
@@ -19,6 +19,10 @@ repositories {
 }
 
 dependencies {
+
+	//GSON
+	implementation 'com.google.code.gson:gson:2.8.6'
+
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'

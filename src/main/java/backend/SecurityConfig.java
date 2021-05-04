@@ -1,6 +1,4 @@
-package de.marvn.interception.backend;
-
-import static org.springframework.security.config.Customizer.withDefaults;
+package backend;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +13,8 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 public class SecurityConfig {
 
@@ -23,7 +23,7 @@ public class SecurityConfig {
   @Value("${spring.security.oauth2.client.registration.discord.client-secret:default-client-secret}")
   private String clientSecret;
 
-  @Value("${server.heroku.url:http://www.dummy.de/}")
+  @Value("${server.heroku.url}")
   private String hostUrl;
 
   @EnableWebSecurity
@@ -31,7 +31,7 @@ public class SecurityConfig {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-      http.authorizeRequests().antMatchers("/login2/oauth2/code/**").permitAll();
+      http.authorizeRequests().antMatchers("/api/**").permitAll();
       http
           .authorizeRequests(authorizeRequests ->
               authorizeRequests
@@ -48,21 +48,18 @@ public class SecurityConfig {
   }
 
   private ClientRegistration discordClientRegistration() {
-
     return ClientRegistration.withRegistrationId("discord")
         .clientId(clientId)
         .clientSecret(clientSecret)
         .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
         .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-        .redirectUri(hostUrl+"/login2/oauth2/code/discord")
-        .scope("email","identify","guilds","messages.read", "connections")
+        .redirectUri(hostUrl+"/api/discord-callback")
+        .scope("email","identify","guilds")
         .authorizationUri("https://discord.com/api/oauth2/authorize")
         .tokenUri("https://discord.com/api/oauth2/token")
         .userInfoUri("https://www.discord.com/users/@me")
         .userNameAttributeName(IdTokenClaimNames.SUB)
-//        .jwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
         .clientName("Discord")
         .build();
-    //https://discord.com/api/oauth2/authorize?client_id=838676421177507880&permissions=0&redirect_uri=https%3A%2F%2Fwww.google.com%2Fsearch%3Fq%3Dteswt&response_type=code&scope=email%20connections%20bot
   }
 }

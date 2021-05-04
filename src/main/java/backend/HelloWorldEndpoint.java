@@ -1,4 +1,4 @@
-package de.marvn.interception.backend;
+package backend;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
