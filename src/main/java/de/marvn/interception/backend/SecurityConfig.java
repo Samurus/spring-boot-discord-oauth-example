@@ -31,7 +31,7 @@ public class SecurityConfig {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-      http.authorizeRequests().antMatchers("/login2/oauth2/code/discord").permitAll();
+//      http.authorizeRequests().antMatchers("/login/oauth2/code/discord").permitAll();
       http
           .authorizeRequests(authorizeRequests ->
               authorizeRequests
