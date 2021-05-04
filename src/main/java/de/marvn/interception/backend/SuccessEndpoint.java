@@ -33,31 +33,20 @@ public class SuccessEndpoint {
 
 
   @GetMapping("/oauth2/code/discord")
-  public ResponseEntity<String> getCustomers(@RequestParam String code, @RequestParam String state, @RequestHeader Map<String, String> headers) {
-    return new ResponseEntity<String>(String.valueOf(code), HttpStatus.OK);
-  }
-
-
-
-  @GetMapping("/oauth2/code/discord2")
   public ResponseEntity<String> getCustomers2(@RequestParam String code, @RequestParam String state, @RequestHeader Map<String, String> headers) {
     System.out.println("code =" + code);
     RestTemplate restTemplate = new RestTemplate();
     HttpHeaders requestHeader = new HttpHeaders();
     requestHeader.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+    requestHeader.add("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:33.0) Gecko/20100101 Firefox/33.0");
+    requestHeader.add("Connection", "keep-alive");
 
     MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
     map.add("client_id",clientId);
     map.add("client_secret",clientSecret);
     map.add("grant_type", "authorization_code");
-    map.add("redirect_uri", hostUrl+"/login/oauth2/code/discord");
+    map.add("redirect_uri", hostUrl+"/login2/oauth2/code/discord");
     map.add("code", code);
-
-//    String body = "client_id="+clientId+"&"+
-//    "client_secret="+clientSecret+"&"+
-//    "grant_type="+"authorization_code"+"&"+
-//    "redirect_uri="+hostUrl+"/login2/oauth2/code/discord"+"&"+
-//    "code="+code;
 
     HttpEntity<MultiValueMap<String, String>> stringHttpEntity = new HttpEntity<>(map,
         requestHeader);
