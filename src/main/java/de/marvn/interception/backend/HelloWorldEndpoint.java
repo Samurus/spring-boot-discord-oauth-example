@@ -11,21 +11,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/hello")
+@RequestMapping("/")
 public class HelloWorldEndpoint {
 
   @Autowired
   private OAuth2AuthorizedClientService authorizedClientService;
 
-  @GetMapping("/world")
+  @GetMapping()
   public String getLoginInfo(Model model, OAuth2AuthenticationToken authentication) {
     OAuth2AuthorizedClient client = authorizedClientService
         .loadAuthorizedClient(
             authentication.getAuthorizedClientRegistrationId(),
             authentication.getName());
 
-    return "loginSuccess";
+    return "Login accomplished. Hello " + authentication.getPrincipal().getAttributes().get("username");
   }
 
+  @GetMapping("/test")
+  public String getTest(Model model, OAuth2AuthenticationToken authentication) {
+    return "Testseite. Hello " + authentication.getPrincipal().getAttributes().get("username");
+  }
 
 }

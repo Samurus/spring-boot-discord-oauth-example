@@ -1,3 +1,0 @@
-GET /api/users/@me HTTP/1.1
-Host: discord.com
-Authorization: Bearer nYg9Im
