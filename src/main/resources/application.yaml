@@ -1,0 +1,25 @@
+server:
+  heroku:
+    url: http://localhost:8080
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          discord:
+            clientName: Samurus client
+            client-id: SET_CLIENT_ID
+            client-secret: SET_CLIENT_SECRET
+            clientAuthenticationMethod: post
+            authorizationGrantType: authorization_code
+            scope:
+              - identify
+              - email
+              - guilds
+            redirectUri: ${server.heroku.url}/login/oauth2/code/discord
+        provider:
+          discord:
+            authorizationUri: https://discordapp.com/api/oauth2/authorize
+            tokenUri: https://discordapp.com/api/oauth2/token
+            userInfoUri: https://discordapp.com/api/users/@me
+            usernameAttribute: username

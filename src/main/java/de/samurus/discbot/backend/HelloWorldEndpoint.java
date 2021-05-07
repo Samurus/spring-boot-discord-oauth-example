@@ -1,4 +1,4 @@
-package de.marvn.interception.backend;
+package de.samurus.discbot.backend;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +25,6 @@ public class HelloWorldEndpoint {
             authentication.getName());
 
     return "Login accomplished. Hello " + authentication.getPrincipal().getAttributes().get("username");
-  }
-
-  @GetMapping("/test")
-  public String getTest(Model model, OAuth2AuthenticationToken authentication) {
-    return "Testseite. Hello " + authentication.getPrincipal().getAttributes().get("username");
   }
 
 }
