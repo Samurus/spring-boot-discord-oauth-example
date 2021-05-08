@@ -24,7 +24,8 @@ public class HelloWorldEndpoint {
             authentication.getAuthorizedClientRegistrationId(),
             authentication.getName());
 
-    return "Login accomplished. Hello " + authentication.getPrincipal().getAttributes().get("username");
+    return "Login accomplished. Hello " + authentication.getPrincipal().getAttributes().get("username")+ ""
+        + "See implementation at github.com/Samurus/spring-boot-discord-oauth-example";
   }
 
 }
